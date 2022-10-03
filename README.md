@@ -7,27 +7,23 @@ This method is implemented in `gradient_descent_find_hamiltonian.py`
 
 Using the $L_2$ loss function which provides a measure of how well a candidate
 Hamiltonian $H^{(c)}$ approximates a target covariance matrix $\Gamma^{(t)}$,
-$$
-L\left(H^{(c)}, \Gamma^{(t)}\right) = \sqrt{
-    \sum_{i,j}^n\left(
-        \Gamma_{H^{(c)}} - \Gamma^{(t)}
-    \right)^2
-} \ ,
-$$
-as well as some parametrization of the Hamiltonian $H(\left\{P_i\right\})$ with
+
+$$ L\left(H^{(c)}, \Gamma^{(t)}\right) = \sqrt{\sum_{i,j}^n\left(\Gamma_{H^{(c)}} - \Gamma^{(t)}\right)^2}, $$
+
+as well as some parametrization of the Hamiltonian $H( \lbrace P_i \rbrace)$ with
 parameters $P_i$, the problem of finding the parent hamiltonian for a given
 target covariance matrix $\Gamma^{(t)}$ can be formulated as
 
 $$ H \approx \mathop{\mathrm{arg\,min}}_{\{P_i\}}
-L\left(H\left(\left\{P_i\right\}\right), \Gamma^{(t)}\right) \ . $$
+L\left(H\left(\lbrace P_i\rbrace \right), \Gamma^{(t)}\right) \ . $$
 
 Gradient descent is a well-known method to find
 a solution for this argument. It is an iterative process, in which normally
 speaking a candidate
 Hamiltonian $H^{(c)}$ is improved in each iteration step given by
 
-$$ H^{(c)}_{n+1} = H^{(c)}_{n} - \eta \nabla_{\left\{P_i\right\}}
-L\left(H^{(c)}_{n}(\left\{P_i\right\}), \Gamma^{(t)}\right) \ . $$
+$$ H^{(c)}_{n+1} = H^{(c)}_{n} - \eta \nabla_{\lbrace P_i \rbrace}
+L\left(H^{(c)}_{n}(\lbrace P_i \rbrace), \Gamma^{(t)}\right) \ . $$
 
 Here, $\nabla_{\{P_i\}}$ denotes the gradient to all parameters of the
 Hamiltonian, and $\eta$ is a learning rate determining the step size.
@@ -40,11 +36,13 @@ involves finding the symplectic eigenvalues of the Hamiltonian.
 Instead, a numeric approximation of the gradient is performed by adding
 a peturbation $\epsilon$ to each parameter, i.e.
 
-$$ H^{(p)}_j = H\left(\left\{P_j+\epsilon, P_i|i \neq j\right\}\right) \ . $$
+$$ H^{(p)}_j = H\left(\lbrace P_j+\epsilon, P_i|i \neq j\rbrace \right) \ . $$
 
 Defining the basis of perturbations of the covariance matrix
-$\{\Delta\Gamma^{(p)}_i\}$ with $$ \Delta\Gamma^{(p)}_i = \Gamma_{H^{(p)}_i}
-- \Gamma^{(c)} \ , $$
+$\Delta\Gamma^{(p)}_i$ with
+
+$$ \Delta\Gamma^{(p)}_i = \Gamma_{H^{(p)}_i} - \Gamma^{(c)}, $$
+
 one can represent the difference between the covariance matrix
 found from the candidate Hamiltonian and the target covariance matrix
 $\Delta\Gamma^{(c)} = \Gamma_{H^{(c)}} - \Gamma^{(t)}$ in this basis.
